@@ -39,6 +39,13 @@ describe("Date Utils", () => {
     expect(isWithinRange(date, from, to)).toBe(true);
   });
 
+  test("isWithinRange - outside range", () => {
+    const date = new Date(2025, 0, 15);
+    const from = new Date(2025, 0, 1);
+    const to = new Date(2025, 0, 14);
+    expect(isWithinRange(date, from, to)).toBe(false);
+  });
+
   // isDateBefore
   test("isDateBefore", () => {
     const date = new Date(2025, 0, 15);
@@ -52,6 +59,12 @@ describe("Date Utils", () => {
     expect(isDateBefore(date, compareDate)).toBe(false);
   });
 
+  test("isDateBefore - different date", () => {
+    const date = new Date(2025, 0, 15);
+    const compareDate = new Date(2025, 0, 14);
+    expect(isDateBefore(date, compareDate)).toBe(false);
+  });
+
   // isSameDay
   test("isSameDay", () => {
     const date = new Date(2025, 0, 15);
@@ -62,6 +75,12 @@ describe("Date Utils", () => {
   test("isSameDay - different date", () => {
     const date = new Date(2025, 0, 15);
     const compareDate = new Date(2025, 0, 16);
+    expect(isSameDay(date, compareDate)).toBe(false);
+  });
+
+  test("isSameDay - different month", () => {
+    const date = new Date(2025, 0, 15);
+    const compareDate = new Date(2025, 1, 15);
     expect(isSameDay(date, compareDate)).toBe(false);
   });
 });
