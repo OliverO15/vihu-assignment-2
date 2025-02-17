@@ -62,6 +62,9 @@ jobs:
   
       - name: Install dependencies
         run: bun install
+
+      - name: Bump version
+        run: npx npm-version patch
   
       - name: Publish package to GitHub Packages
         run: npm publish
