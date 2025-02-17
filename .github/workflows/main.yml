@@ -64,7 +64,7 @@ jobs:
         run: bun install
 
       - name: Bump version
-        run: npx npm-version patch
+        run: npm version patch --no-git-tag-version
   
       - name: Publish package to GitHub Packages
         run: npm publish
