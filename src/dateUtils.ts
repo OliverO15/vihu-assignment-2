@@ -2,6 +2,7 @@ import { getYear, add as addDateFns, isWithinInterval, isBefore, isSameDay as is
 import { DATE_UNIT_TYPES } from "./constants";
 
 export function getCurrentYear(): number {
+  console.log('hello world');
   return getYear(new Date());
 }
 
