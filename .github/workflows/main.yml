@@ -20,13 +20,22 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: bun install
 
       - name: Run tests with coverage
-        run: npm test --coverage
+        run: bun test --coverage
+
+      - name: Run TypeScript Type Check
+        run: bunx tsc --noEmit
+
+      - name: Run ESLint
+        run: bunx eslint . --ext .ts
+
+      - name: Run Prettier Check
+        run: bunx prettier --check .
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
@@ -41,33 +50,32 @@ jobs:
     permissions:
       contents: read
       packages: write
-  
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-  
+
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
-  
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          registry-url: "https://npm.pkg.github.com"
-  
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+
       - name: Create .npmrc file
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NODE_AUTH_TOKEN }}" > ~/.npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-  
+
       - name: Install dependencies
-        run: npm install
+        run: bun install
 
       - name: Bump version
         run: npm version patch --no-git-tag-version
-  
+
       - name: Publish package to GitHub Packages
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-

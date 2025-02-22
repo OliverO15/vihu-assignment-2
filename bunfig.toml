@@ -1,9 +1,6 @@
 [test]
 coverageReporter = ["lcov"]
 
-[install]
-registry = "https://npm.pkg.github.com"
-
 [publish]
 registry = "https://npm.pkg.github.com"
 
